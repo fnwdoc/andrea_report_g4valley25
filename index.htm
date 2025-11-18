@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Estratégia Empresarial (3 Dias)</title>
+    <!-- Carregando Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração de Fontes e Classes de Estilo -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Sistema de cores coerente por dia
+                        'day-one': {
+                            '50': '#f9fafb', // bg-light
+                            '100': '#f3f4f6',
+                            '200': '#e5e7eb',
+                            '300': '#d1d5db',
+                            '400': '#9ca3af',
+                            '500': '#6b7280', // day-one-light
+                            '600': '#4b5563',
+                            '700': '#374151', // day-one (principal)
+                            '800': '#1f2937',
+                            '900': '#111827'
+                        },
+                        'day-two': {
+                            '50': '#eff6ff',
+                            '100': '#dbeafe',
+                            '200': '#bfdbfe',
+                            '300': '#93c5fd',
+                            '400': '#60a5fa',
+                            '500': '#3b82f6', // day-two-light
+                            '600': '#2563eb', // day-two-medium
+                            '700': '#1d4ed8',
+                            '800': '#1e40af', // day-two (principal)
+                            '900': '#1e3a8a'
+                        },
+                        'day-three': {
+                            '50': '#ecfdf5',
+                            '100': '#d1fae5',
+                            '200': '#a7f3d0',
+                            '300': '#6ee7b7',
+                            '400': '#34d399',
+                            '500': '#10b981',
+                            '600': '#059669', // day-three-light
+                            '700': '#047857',
+                            '800': '#065f46', // day-three (principal)
+                            '900': '#064e3b'
+                        },
+                        // Cores de fundo
+                        'bg-light': '#f9fafb',
+                        'card-bg': '#ffffff',
+                    }
+                }
+            }
+        }
+
+        // Função para expandir/colapsar os detalhes do tópico
+        function toggleDetails(topicId) {
+            const detailsElement = document.getElementById(`details-${topicId}`);
+            const iconElement = document.querySelector(`#${topicId} .icon-toggle`);
+            
+            if (detailsElement.classList.contains('hidden')) {
+                // Expande
+                detailsElement.classList.remove('hidden');
+                iconElement.classList.add('rotate-45'); // Gira o + para X (ou um ícone de seta)
+                
+                // Determina a cor da borda de destaque baseada no dia
+                let borderColor = 'border-gray-300'; // Padrão
+                if (topicId.includes('day-1') || topicId.includes('topic-1')) {
+                    borderColor = 'border-day-one-700/30';
+                } else if (topicId.includes('day-2') || topicId.includes('topic-2')) {
+                    borderColor = 'border-day-two-800/30';
+                } else if (topicId.includes('day-3') || topicId.includes('topic-3')) {
+                    borderColor = 'border-day-three-800/30';
+                }
+
+                document.getElementById(topicId).classList.add('shadow-xl', borderColor);
+            } else {
+                // Colapsa
+                detailsElement.classList.add('hidden');
+                iconElement.classList.remove('rotate-45');
+                document.getElementById(topicId).classList.remove('shadow-xl', 'border-day-one-700/30', 'border-day-two-800/30', 'border-day-three-800/30');
+            }
+        }
+
+        // Função para expandir/colapsar os módulos (seções maiores)
+        function toggleModule(moduleId) {
+            const contentElement = document.getElementById(moduleId + '-content');
+            const iconElement = document.querySelector(`#${moduleId} .module-icon-toggle`);
+            
+            if (contentElement.classList.contains('hidden')) {
+                contentElement.classList.remove('hidden');
+                iconElement.classList.remove('rotate-90');
+            } else {
+                contentElement.classList.add('hidden');
+                iconElement.classList.add('rotate-90');
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* bg-light */
+        }
+        .module-header {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        /* Corrigindo a rotação do ícone de alternância de detalhes */
+        .icon-toggle {
+            transition: transform 0.3s ease;
+        }
+        /* Estilos de hover consistentes */
+        .card-container:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased">
+
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-extrabold text-white sm:text-4xl text-center">
+                G4 Valley - Report Andrea <br> Crescimento Empresarial (3 Dias)
+            </h1>
+            <p class="mt-2 text-center text-lg text-gray-300">
+                Detalhamento: navegue no documento interativo.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="space-y-12">
+
+            <!-- ========================================================= -->
+            <!-- 1. DIA 1: FUNDAMENTOS E VISÃO DE MERCADO (CINZA ESCURO) -->
+            <!-- ========================================================= -->
+            <section id="day-1" class="bg-card-bg rounded-xl shadow-2xl p-6 md:p-10 border-t-8 border-day-one-700">
+                <div class="module-header flex justify-between items-center" onclick="toggleModule('day-1')">
+                    <h2 class="text-3xl font-bold text-gray-800 flex items-center">
+                        <span class="mr-3 text-day-one-700 font-extrabold text-4xl">1.</span> Dia 1: Revisar Conteudo, preparar material para incorporar aqui
+                    </h2>
+                    <svg class="h-8 w-8 text-day-one-700 transform transition-transform duration-300 module-icon-toggle rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+                
+                <div id="day-1-content" class="hidden pt-6">
+                    <div class="bg-day-one-50 p-6 rounded-lg border border-day-one-300">
+                        <p class="text-lg text-gray-700">
+                            <span class="font-bold text-day-one-600">Espaço reservado para o Dia 1.</span> Aqui, detalharemos os tópicos e pilares essenciais apresentados e itens de Valor Agregado.
+                        </p>
+                        <p class="mt-4 text-sm text-gray-500 italic">
+                            Aguardando o detalhamento do conteúdo do Dia 1 para inserção de tópicos e cards.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- 2. DIA 2: CRESCIMENTO E GOVERNANÇA (AZUL ESCURO) -->
+            <!-- ========================================================= -->
+            <section id="day-2" class="bg-card-bg rounded-xl shadow-2xl p-6 md:p-10 border-t-8 border-day-two-800">
+                <div class="module-header flex justify-between items-center" onclick="toggleModule('day-2')">
+                    <h2 class="text-3xl font-bold text-gray-800 flex items-center">
+                        <span class="mr-3 text-day-two-800 font-extrabold text-4xl">2.</span> Dia 2: Crescimento e Governança
+                    </h2>
+                    <svg class="h-8 w-8 text-day-two-800 transform transition-transform duration-300 module-icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                    </svg>
+                </div>
+
+                <div id="day-2-content" class="pt-6 space-y-10">
+
+                    <!-- Módulo 2.1: Marketing, Canais e Oferta (Tópicos 1-8) - COR: AZUL CLARO (day-two-500) -->
+                    <div class="border-b pb-4 border-gray-200">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="mr-2 text-day-two-500">2.1.</span> Marketing, Canais e Oferta
+                            <span class="text-sm font-medium ml-4 py-1 px-3 bg-day-two-100 text-day-two-700 rounded-full">8 Tópicos</span>
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Tópico 1: Componentes do Marketing -->
+                            <div id="topic-1" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-1')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Marketing: 8 Ps, Marca e Estratégia Matemática</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-1" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">O conceito **"Marketing é"** é cercado pelos **8 Ps** (Performance, Praça, Preço, Promoção, Produto, Processos, Pessoas e Posicionamento), ligados à Marca, Canais e Oferta. O marketing é fundamentalmente **matemática**, buscando transformar **COMPORTAMENTO EM ESTRATÉGIA**. A criatividade só gera valor quando há distribuição efetiva.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Tópico 2: Marketing como Investimento -->
+                            <div id="topic-2" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-2')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Marketing Não é Despesa, é Investimento</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-2" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">O princípio central exige a avaliação constante do **Retorno (ROI)** e não apenas da proposta. A mentalidade deve ser orientada por dados e resultados, reconhecendo que o marketing é um motor de crescimento que deve ser tratado como um ativo.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 3: Ressignificando o ROI (5 Pilares) -->
+                            <div id="topic-3" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-3')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">ROI Expandido: 5 Pilares de Retorno</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">O ROI é ressignificado para além do financeiro, englobando cinco pilares interconectados. A **Reputação**, por exemplo, acelera a conversão e permite vender mais caro.</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1 mt-2">
+                                        <li><strong>Financeiro:</strong> Aumento de LTV, Ticket médio, conversão e redução da inadimplência.</li>
+                                        <li><strong>Visibilidade:</strong> Alcance, Buscas, Engajamento e Conteúdo espontâneo.</li>
+                                        <li><strong>Reputação:</strong> Autoridade, Posicionamento e Advogados da marca (proteção de margem).</li>
+                                        <li><strong>Networking:</strong> Acesso, Capital Social, Parcerias e Rede de apoio.</li>
+                                        <li><strong>Demanda:</strong> Geração, reengajamento de leads e redução do tempo de conversão.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Tópico 4: Alocação de Orçamento (4 Caixinhas) -->
+                            <div id="topic-4" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-4')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Orçamento Estratégico: 4 Caixinhas de Alocação</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-4" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">O orçamento é segmentado para equilibrar a operação atual com o crescimento futuro e a inovação. O **Orçamento Suicida (10%)** é reservado para oportunidades que não aceitam burocracia, enquanto o **Futuro (10%)** visa clientes de longo prazo.</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1 mt-2">
+                                        <li>**60%:** Canais validados (o que funciona hoje).</li>
+                                        <li>**20%:** Novos Canais (testes controlados).</li>
+                                        <li>**10%:** Futuro (Autoridade de longo prazo).</li>
+                                        <li>**10%:** Orçamento Suicida (Aproveitamento de contexto e loucuras).</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 5: Tipos de Canais por Objetivo -->
+                            <div id="topic-5" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-5')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Canais Integrados à Jornada e Escalabilidade</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-5" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">Os canais são classificados por objetivos (Alcance, Autoridade, Audiência, Receita, Retenção, Indicação) e se integram à jornada: **Autoridade $\rightarrow$ Posicionamento** (Social Media/Podcast); **Receita $\rightarrow$ Relacionamento** (Website/Vendedor); **Retenção $\rightarrow$ Experiência** (Suporte/Gerente). A priorização é dada ao canal com menor ciclo de venda, maior LTV e menor CAC.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 6: Marketing em 4 Níveis -->
+                            <div id="topic-6" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-6')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Estrutura Hierárquica: 4 Níveis de Marketing</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-6" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">A atuação correta do marketing segue uma estrutura hierárquica clara, embora a maioria dos negócios comece pelo Tático:</p>
+                                    <ol class="list-decimal list-inside text-gray-700 text-sm space-y-1 mt-2">
+                                        <li>**Estratégia do Negócio:** Objetivos de Receita, Mercado Alvo, Proposta de Valor e Missão.</li>
+                                        <li>**Estratégia de Marketing:** Posicionamento, Mensagem, Pesquisa com Cliente e Roadmap.</li>
+                                        <li>**Táticas de Marketing:** Conteúdo, E-mail Marketing, Propaganda Direta, Outbound e Afiliados.</li>
+                                        <li>**Operação de Marketing:** Copy, Ads, Design e Publicações (Post).</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 7: Razões Pelas Quais as Pessoas Não Compram -->
+                            <div id="topic-7" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-7')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">7 Objeções de Compra e o Papel do Marketing</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-7" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">O papel do marketing é cercar o cliente e neutralizar as 7 principais razões da não-compra, garantindo que o contato comercial encontre um cliente já influenciado e com objeções derrubadas (confiança, entendimento, valor). As razões incluem a falta de importância, complexidade, falta de crença e desconfiança.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 8: A Estrutura da Oferta -->
+                            <div id="topic-8" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-8')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Pilares da Oferta: Público, Produto e Timing</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-8" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm">A qualidade da oferta é crítica para proteger a margem. A regra é: **melhore a oferta antes de mudar o preço** (mexendo em benefício, condição e pagamento). A oferta é estruturada em: **Pra quem você vende** (público específico), **O que você vende** (produto, bônus, garantia) e **Quando você vende** (timing e gatilho de contexto).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 2.2: Desafios de Empresários (Tópicos 9-12) - COR: AZUL MÉDIO (day-two-600) -->
+                    <div class="border-b pb-4 border-gray-200">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="mr-2 text-day-two-600">2.2.</span> Desafios de Empresários
+                            <span class="text-sm font-medium ml-4 py-1 px-3 bg-day-two-100 text-day-two-700 rounded-full">4 Tópicos</span>
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Tópico 9: Processo Sucessório e o Choque de Gerações -->
+                            <div id="topic-9" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-9')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Processo Sucessório e Choque de Gerações (Coplan)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-9" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2">A sucessão em negócios familiares é um desafio de poder e apego, especialmente em crescimento exponencial (R$ 5M para R$ 27M).</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**O Fundador como Adversário:** No jogo de poder, o fundador pode ser o "maior adversário", criticando "tudo que você faz menos você", motivado pelo medo de desapego do negócio.</li>
+                                        <li>**A Estratégia da Escutativa:** A sucessão saudável exige ouvir com todas as forças antes de falar. A regra de ouro é perguntar: "Você já terminou? Posso falar?", exigindo silêncio em troca.</li>
+                                        <li>**Resultado da Governança:** O sucesso se deu com o fundador migrando para a posição de **Presidente do Conselho e Acionista**, recebendo dividendos para desapegar da operação.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 10: Crescimento Exponencial e a Ruptura de Modelos -->
+                            <div id="topic-10" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-10')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Crescimento Exponencial, Cultura e Ruptura</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-10" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2">Crescimento acelerado (ex: triplicar de 150 para 450 colaboradores) traz medo de perder o controle e exige foco em cultura e quebra de paradigmas.</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Quebrar o Negócio Diariamente:** "Toda solução de hoje é o problema do futuro." O crescimento leva à **ruptura** onde o planejamento, pessoas ou objetivos do passado já não servem ao presente.</li>
+                                        <li>**Sustentação dos Valores:** A cultura forte deve ser construída sobre os **valores dos sócios**, e não apenas da empresa, com o fundador atuando como bastião desse pilar.</li>
+                                        <li>**Pertencimento:** Investir para que os 450 colaboradores percebam que o projeto é para a **realização dos seus sonhos** através da empresa, gerando forte pertencimento e apelo social.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Tópico 11: Equity, Valuation e M&A -->
+                            <div id="topic-11" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-11')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Equity, Valuation e o Valor Emocional do Amor (Chad)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-11" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2">Criar valor de *equity* (além do faturamento) e vender (ex: 75% por R$ 80M) envolve fatores macroeconômicos e estratégicos.</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Leitura Macroeconômica:** Entender as "ondas" do mercado, pois *valuations* são impactadas pela taxa de juros ("custo do dinheiro"). A crise ("maré baixa") expõe modelos de negócios insustentáveis.</li>
+                                        <li>**Fatores de Valor:** Focar em precificação, **mais funcionalidade**, **menos complexidade** e **menos passivos**. Eliminar operações de baixo valor e preservar a aquisição de receitas.</li>
+                                        <li>**O Valor Emocional:** A maior dor na venda é que o valor financeiro nunca precificará o "amor", o trabalho e a dedicação investidos. A comunidade (Club) é crucial para validar decisões estratégicas de desinvestimento.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 12: A Jornada Solitária e o Valor da Comunidade -->
+                            <div id="topic-12" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-12')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Jornada Solitária e o Valor da Comunidade (G4 Club)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-12" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2">Empreender é uma jornada "muito solitária". O Club (12.000 empresários) atua como um ecossistema de apoio e crescimento.</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Apoio e Mentoramento:** Oferece apoio genuíno, **feedback real** e a oportunidade de "tomar muita porrada" (construtiva), pois o CEO não tem quem o mentore na posição em que está.</li>
+                                        <li>**Atalhar o Caminho:** Permite "atalhar o caminho" aprendendo com quem já teve o problema e já o resolveu.</li>
+                                        <li>**Filtro de Concorrentes:** Estando na comunidade, o empresário vê outras empresas crescendo em meio à diversidade, transformando a dificuldade em um **"filtro de concorrentes"** e combatendo o pessimismo do mercado.</li>
+                                        <li>**Mentalidade:** É preciso ter a mentalidade para dirigir um **transatlântico** (futuro), não apenas um caiaque (presente), e isso não pode ser aprendido sozinho.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 2.3: Estratégia e Inteligência Competitiva (Tópicos 13-18) - COR: AZUL ESCURO (day-two-700) -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="mr-2 text-day-two-700">2.3.</span> Estratégia e Inteligência Competitiva
+                            <span class="text-sm font-medium ml-4 py-1 px-3 bg-day-two-100 text-day-two-700 rounded-full">6 Tópicos</span>
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Tópico 13: A Jornada e os Pontos Cegos do Fundador -->
+                            <div id="topic-13" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-13')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">A Jornada e os Pontos Cegos do Fundador (Custo Operacional)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-13" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2 font-medium">A jornada do empresário geralmente culmina na confusão de identidades (pessoa física x jurídica), gerando altos custos operacionais:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Jornada de 4 Etapas:** Começa pequeno $\rightarrow$ Contrata pessoas parecidas $\rightarrow$ Que contratam outras parecidas $\rightarrow$ **A empresa e o fundador se confundem** (a empresa adota o jeito e os valores do fundador).</li>
+                                        <li>**Custo dos Pontos Cegos:** O fundador gasta **60-80% do tempo em decisões operacionais**. Isso gera estagnação, rotatividade de talentos de 3 a 5 vezes maior e desaceleração da inovação.</li>
+                                        <li>**Pontos Cegos Específicos:** Falta de delegação (gargalo), líderes desmotivados (saem por perda de autonomia) e decisões lentas (tudo espera pelo fundador), limitando a escalabilidade.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 14: Conflito de Identidade (Pessoa vs. Empresário) -->
+                            <div id="topic-14" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-14')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Conflito de Identidade e o Destino do Negócio (Separação Emocional)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-14" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2 font-medium">É fundamental resolver a dicotomia entre a lógica da vida pessoal e a lógica de crescimento do negócio:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Conflito de Lógicas:** Lógica Pessoal (trabalhar menos, renda estável) vs. Lógica do Negócio (crescer 30-50% ao ano, reinvestir lucros).</li>
+                                        <li>**Separação Emocional:** O empresário deve ver a empresa como uma **terceira entidade** com seu próprio destino e potencial máximo.</li>
+                                        <li>**Exercício do Funeral:** Definir o objetivo de vida pessoal (o que quer ouvir no funeral) é pré-requisito para definir o papel e o destino do negócio em sua história.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 15: Definição de Estratégia (O Jogo) -->
+                            <div id="topic-15" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-15')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Estratégia é Jogo, Escolhas Deliberadas e o Cliente Juiz</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-15" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2 font-medium">Estratégia é o "jogo que a empresa quer jogar" e exige clareza e foco:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Definição:** Estratégia consiste em **escolhas deliberadas** sobre Onde competir, Como vencer e, crucialmente, **O que NÃO fazer**. Não é um plano de tarefas ou orçamento.</li>
+                                        <li>**O Cliente como Juiz:** O sucesso é determinado por quem a empresa serve. É preciso saber **quem vai chorar a falta** da sua empresa se ela fechar hoje, em um segundo.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 16: As Quatro Cadeiras do Dono (Governança) -->
+                            <div id="topic-16" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-16')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">As Quatro Cadeiras do Dono e o Foco no Futuro (Sócio)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-16" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2 font-medium">O crescimento é desbloqueado quando o dono define qual cadeira ocupa e qual deveria ocupar nos próximos 12 meses:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Cadeiras e Focos:** **Fundador** (Visão, Cultura) $\rightarrow$ **CEO** (Execução Estratégica, Gestão de Pessoas) $\rightarrow$ **Presidente do Conselho** (Governança, Accountability) $\rightarrow$ **Operador** (Execução de Tarefas).</li>
+                                        <li>**Papel Crítico:** O erro é falhar no papel de **Sócio** (pensar o futuro/estratégia), pois o tempo é gasto controlando o dia a dia (CEO/Operador).</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 17: A Sequência Não Negociável -->
+                            <div id="topic-17" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-17')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">A Sequência Não Negociável: Estratégia $\rightarrow$ Cultura $\rightarrow$ Incentivos</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-17" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2 font-medium">A ordem de implementação é crucial para o crescimento sustentável. Inverter ou pular a sequência altera negativamente o produto final:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Ordem Correta:** 1. **Estratégia** (Mapa, 3 Metas) $\rightarrow$ 2. **Cultura & Estrutura** (Organograma, Rituais de Liderança) $\rightarrow$ 3. **Sistema de Gestão & Incentivos** (Rituais Semanais, 5 KPIs, Política de Bônus).</li>
+                                        <li>**Custo da Escolha Errada:** O custo de escolher mal um talento chave pode ser de **14 a 18 salários** desse funcionário, somado ao custo do **tempo mais caro** da organização: o tempo do sócio gasto na operação.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 18: Compromisso e Ação (Plano de 90 Dias) -->
+                            <div id="topic-18" class="card-container cursor-pointer p-5 bg-day-two-50 rounded-lg border border-day-two-200 hover:border-day-two-400 transition duration-300" onclick="toggleDetails('topic-18')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-two-700">Diagnóstico Relâmpago e o Plano 5W2H (Ação em 90 Dias)</h4>
+                                    <svg class="h-6 w-6 text-day-two-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-18" class="hidden pt-3 border-t border-day-two-200 mt-3">
+                                    <p class="text-gray-700 text-sm mb-2 font-medium">Para sair da inércia, o compromisso público e a ação estruturada são essenciais:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Diagnóstico Relâmpago (5 Pontos):** Avaliação de Cadeira, Clareza Estratégica, Estrutura, Rituais de Gestão e Alinhamento dos Incentivos.</li>
+                                        <li>**Plano 5W2H (90 Dias):** Usado para ajustar as questões do diagnóstico, definindo O quê, Por quê, Quem, Quando, Onde, Como e Quanto custará.</li>
+                                        <li>**Metáfora:** A **Estratégia** (jogo/aposta) deve **acalmar** (clareza para 5 anos). O **Plano** (90 dias) deve dar **ação** e senso de urgência.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- Fim dos Módulos do Dia 2 -->
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- 3. DIA 3: INOVAÇÃO E ESCALABILIDADE (VERDE ESCURO) -->
+            <!-- ========================================================= -->
+            <section id="day-3" class="bg-card-bg rounded-xl shadow-2xl p-6 md:p-10 border-t-8 border-day-three-800">
+                <div class="module-header flex justify-between items-center" onclick="toggleModule('day-3')">
+                    <h2 class="text-3xl font-bold text-gray-800 flex items-center">
+                        <span class="mr-3 text-day-three-800 font-extrabold text-4xl">3.</span> Dia 3: Inovação e Escalabilidade com IA
+                    </h2>
+                    <!-- Icone de toggle para cima (expansão padrão) -->
+                    <svg class="h-8 w-8 text-day-three-800 transform transition-transform duration-300 module-icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                    </svg>
+                </div>
+                
+                <div id="day-3-content" class="pt-6 space-y-10">
+
+                    <!-- Módulo 3.1: Impacto e Desempenho da IA (Tópicos 3.1-3.3) - COR: VERDE CLARO (day-three-600) -->
+                    <div class="border-b pb-4 border-gray-200">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="mr-2 text-day-three-600">3.1.</span> Impacto e Desempenho da IA no Knowledge Worker
+                            <span class="text-sm font-medium ml-4 py-1 px-3 bg-day-three-100 text-day-three-700 rounded-full">3 Tópicos</span>
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Tópico 3.1: Velocidade e Eficiência da IA -->
+                            <div id="topic-3-1" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-1')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Velocidade e Eficiência (6h em 15min)</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-1" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">A tecnologia de IA está transformando o desempenho do **knowledge worker** (trabalhador do conhecimento). Sua velocidade e eficiência são marcantes:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Otimização de Tempo:** A IA pode fazer tarefas que tipicamente levariam **seis horas em menos de duas horas** em 80% dos casos.</li>
+                                        <li>**Média de Execução:** Em testes de campo, a média de tempo de execução das tarefas pela IA é de **menos de 15 minutos**.</li>
+                                        <li>**Impacto:** Permite que profissionais se concentrem em atividades de maior valor estratégico e humano.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Tópico 3.2: Comparação Humana e Ameaça ao Time Médio -->
+                            <div id="topic-3-2" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-2')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">IA e o Desempenho Humano (Superando o Time Médio)</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-2" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">Uma pesquisa (GDP Vault) comparou modelos de IA com profissionais sêniores, revelando um alto nível de paridade:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Teste Sênior:** Em um estudo com 1.300 profissionais (média de 14 anos de experiência e salário anual de U$ 400 mil), a IA disponível hoje **empatou ou superou** os especialistas em **47,6%** dos casos.</li>
+                                        <li>**Ameaça ao Time Médio:** Como a maioria dos times de mercado não possui essa experiência sênior, o número de tarefas que a IA consegue igualar ou superar o time médio é estimado entre **70% e 80%**.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 3.3: Previsão de Custo/Valor (80/20) -->
+                            <div id="topic-3-3" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-3')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Previsão 80/20: Custo e Capacidade em 5 Anos</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-3" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">Para o **knowledge worker** (que toma decisões, analisa e interpreta dados), o cenário futuro é claro em termos de custo-benefício:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Cenário de 5 Anos:** A IA fará **80% do que o profissional faz**, cobrando apenas **20% do que ele cobra**.</li>
+                                        <li>**Cenário Imediato:** O Chat GPT já consegue realizar 80% do trabalho desse profissional, cobrando apenas U$ 20 por mês.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 3.2: Estratégia e Resultados da IA (Tópicos 3.4-3.6) - COR: VERDE MÉDIO (day-three-700) -->
+                    <div class="border-b pb-4 border-gray-200">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="mr-2 text-day-three-700">3.2.</span> Estratégia, Conversão e Mentalidade
+                            <span class="text-sm font-medium ml-4 py-1 px-3 bg-day-three-100 text-day-three-700 rounded-full">3 Tópicos</span>
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Tópico 3.4: Foco Estratégico (Aumento de capacidade) -->
+                            <div id="topic-3-4" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-4')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Foco Estratégico: Aumento de Capacidade vs. Substituição</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-4" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">O foco estratégico da IA é aumentar o desempenho do time, não substituí-lo. A mentalidade estratégica correta é:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Aumento de Capacidade:** A abordagem deve ser: "como que eu faço cada um deles [do time] ser o melhor vendedor do planeta".</li>
+                                        <li>**Melhoria Contínua:** A IA ajuda-os a **"fazerem mais do mesmo melhor"**, elevando a barra de performance para toda a equipe.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Tópico 3.5: Resolução de Problemas e Tomada de Decisão -->
+                            <div id="topic-3-5" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-5')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">IA como Solucionadora: Resolvendo o Problema Delegado</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-5" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">A inteligência artificial atua com um alto grau de autonomia e compreensão do contexto de negócios:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Resolução Ativa:** A IA não apenas faz o que é pedido, mas **resolve o problema que foi delegado** e toma decisões sobre a melhor forma de resolvê-lo.</li>
+                                        <li>**Contextualização:** Ela consegue entender o desafio e trazer **cases úteis**, explicando o contexto de sua utilidade para o problema em questão.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 3.6: Aumento de Conversão em Vendas -->
+                            <div id="topic-3-6" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-6')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Ganho de 33% na Conversão de Vendas com Preparação</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-6" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">A utilização da IA para otimizar a preparação da equipe de vendas tem um impacto direto e mensurável na receita:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Resultado:** O uso da IA para preparar o time de vendas para a ligação resultou em um ganho de **33% na taxa de conversão**.</li>
+                                        <li>**Apoio da IA:** Essa preparação permite que o vendedor saiba rapidamente a margem média do mercado do cliente, notícias relevantes, cases de alunos similares e produtos com fit, elevando a qualidade da interação.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Módulo 3.3: Governança e Implementação (Tópicos 3.7-3.10) - COR: VERDE ESCURO (day-three-800) -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="mr-2 text-day-three-800">3.3.</span> Governança, PTI e Implementação Contínua
+                            <span class="text-sm font-medium ml-4 py-1 px-3 bg-day-three-100 text-day-three-700 rounded-full">4 Tópicos</span>
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Tópico 3.7: Organograma da IA e PTI -->
+                            <div id="topic-3-7" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-7')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Governança: Organograma, Delegação e PTI da IA</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-7" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">A IA deve ser estruturada e gerenciada como um recurso valioso da equipe:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Organograma:** É necessário ter um **organograma da IA** na empresa, pensando nela como um profissional contratado para quem você vai delegar uma tarefa.</li>
+                                        <li>**PTI (Plano de Treinamento Individual):** A IA precisa de um PTI para garantir que esteja continuamente atualizada e melhorando (ex: automatizar follow-up ou captura de cases).</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 3.8: Processo de Implementação (3 Perguntas) -->
+                            <div id="topic-3-8" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-8')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Processo de Implementação: O Mapeamento das 3 Perguntas</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-8" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">Antes de iniciar qualquer projeto de IA, a governança exige o mapeamento das seguintes questões essenciais:</p>
+                                    <ol class="list-decimal list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Processo:** Qual é o processo no qual a IA será colocada?</li>
+                                        <li>**Resultado:** Qual é o resultado esperado da intervenção da IA?</li>
+                                        <li>**Medição:** Como que eu vou medir esse resultado (indicadores)?</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 3.9: Ciclo PDCA e Prova de Conceito (POC) -->
+                            <div id="topic-3-9" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-9')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Medição e Prova de Conceito (POC) via PDCA</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-9" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">A implementação segue o ciclo de administração PDCA para garantir a melhoria contínua ("Não tem uma última implementação do dia"):</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Exemplo de Medição:** No processo de recrutamento, os indicadores de medição seriam **tempo para fechar uma vaga** (rapidez) e **turnover em até 3 meses** (qualidade do processo).</li>
+                                        <li>**Prova de Conceito (POC):** Uma POC envolve subir o *job description* e currículo no Gemini ou Chat GPT, pedir uma análise de *fit*, e **comparar o resultado da IA com o do time de RH**, ajustando com dados históricos.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tópico 3.10: Parceria Amazon, Integração e a Filosofia da IA 24/7 -->
+                            <div id="topic-3-10" class="card-container cursor-pointer p-5 bg-day-three-50 rounded-lg border border-day-three-200 hover:border-day-three-400 transition duration-300" onclick="toggleDetails('topic-3-10')">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-lg text-day-three-700">Parceria Amazon, Integração e a Filosofia da IA 24/7</h4>
+                                    <svg class="h-6 w-6 text-day-three-600 transform transition-transform duration-300 icon-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div id="details-topic-3-10" class="hidden pt-3 border-t border-day-three-200 mt-3">
+                                    <p class="text-gray-700 text-sm font-medium mb-2">O apoio institucional e a filosofia por trás da IA como parceira de negócio:</p>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                        <li>**Investimento e Objetivo:** A Amazon fará um investimento em parceria com o G4 de quase **R$ 50 mil em serviços profissionais e créditos**, com o objetivo de implementar **100% funcional** um agente de IA para aumentar a eficiência e preparação.</li>
+                                        <li>**Integração:** A IA deve ser integrada ao **planejamento estratégico (G4 Advisor)** e a todas as etapas do negócio (capturar dados de mercado, treinar vendedores, analisar feedback), não sendo apenas um "módulo de IA" separado.</li>
+                                        <li>**Filosofia:** A IA é como contratar um profissional super barato, super capaz, que trabalha **24 horas por dia, não reclama, não fica doente, não me processa e não tem férias**.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- Fim dos Módulos do Dia 3 -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <p>FNW Assessoria & Parceiros  - Análise de Conteúdo Empresarial - Estrutura tópicos em web page interativa - Agenda em 3 Dias.</p>
+        </div>
+    </footer>
+</body>
+</html>
